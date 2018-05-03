@@ -1,6 +1,6 @@
 /*
 	jCOUNTER.JS
-	V. 1.0.0
+	V. 1.0.1
 	José Javier Fernández Mendoza 2018
 	Require jquery
 	Añade un parrafo a cada elemento con la clase "cuentacaracteres" para poner el contador de caracteres y los caracteres maximos
@@ -20,24 +20,32 @@
       $(element).keyup(function updateCharCounter() {
 
         var $me = $(this);
-        var maxLength = parseInt($me.attr('maxlength'), 10);
+        var maxLength = isNaN(parseInt($me.attr('maxlength'))) ? 0 : parseInt($me.attr('maxlength'));
         var charCount = $me.val().length;
         var nombrecajalimite=$me.prop('id')+"_limit";
         var cajalimite = $('#'+nombrecajalimite);
-
-        cajalimite.text('' + maxLength + '/' + (maxLength - charCount));
+        if (maxLength>0){
+          cajalimite.text('' + maxLength + '/' + (maxLength - charCount));
+        }else{
+          cajalimite.text((charCount));
+        }
       });
 	   
-        var $me = $(this),
-          maxLength = parseInt($me.attr('maxlength'), 10),
-          charCount = $me.val().length;
-		  var nombrecajalimite=$me.prop('id')+"_limit";
-          var cajalimite = $('#'+nombrecajalimite);
-		  if (cajalimite){
-			$me.after('<p id="'+nombrecajalimite+'" class="limit"></p>');
-		  }
-		   cajalimite = $('#'+nombrecajalimite);
-		  cajalimite.text('' + maxLength + '/' + (maxLength - charCount));
+        var $me = $(this);
+        var maxLength = isNaN(parseInt($me.attr('maxlength'))) ? 0 : parseInt($me.attr('maxlength'));
+        var charCount = $me.val().length;
+		    var nombrecajalimite=$me.prop('id')+"_limit";
+        var cajalimite = $('#'+nombrecajalimite);
+		    if (cajalimite){
+			     $me.after('<p id="'+nombrecajalimite+'" class="limit"></p>');
+		    }
+		    cajalimite = $('#'+nombrecajalimite);
+        if (maxLength>0){
+          cajalimite.text('' + maxLength + '/' + (maxLength - charCount));
+        }else{
+          cajalimite.text((charCount));
+        }
+		    
      
     });
   };
